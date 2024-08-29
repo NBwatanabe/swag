@@ -940,7 +940,6 @@ func getTagsFromComment(comment string) (tags []string) {
 		}
 	}
 	return
-
 }
 
 func (parser *Parser) matchTags(comments []*ast.Comment) (match bool) {
@@ -1243,12 +1242,14 @@ func (parser *Parser) ParseDefinition(typeSpecDef *TypeSpecDef) (*Schema, error)
 
 	if len(typeSpecDef.Enums) > 0 {
 		var varnames []string
-		var enumComments = make(map[string]string)
+		enumDescriptions := make([]string, 0)
+		enumComments := make(map[string]string)
 		for _, value := range typeSpecDef.Enums {
 			definition.Enum = append(definition.Enum, value.Value)
 			varnames = append(varnames, value.key)
 			if len(value.Comment) > 0 {
 				enumComments[value.key] = value.Comment
+				enumDescriptions = append(enumDescriptions, value.Comment)
 			}
 		}
 		if definition.Extensions == nil {
@@ -1257,6 +1258,7 @@ func (parser *Parser) ParseDefinition(typeSpecDef *TypeSpecDef) (*Schema, error)
 		definition.Extensions[enumVarNamesExtension] = varnames
 		if len(enumComments) > 0 {
 			definition.Extensions[enumCommentsExtension] = enumComments
+			definition.Extensions[enumDescriptionsExtension] = enumDescriptions
 		}
 	}
 
@@ -1298,8 +1300,7 @@ func fillDefinitionDescription(definition *spec.Schema, file *ast.File, typeSpec
 				continue
 			}
 
-			definition.Description =
-				extractDeclarationDescription(typeSpec.Doc, typeSpec.Comment, generalDeclaration.Doc)
+			definition.Description = extractDeclarationDescription(typeSpec.Doc, typeSpec.Comment, generalDeclaration.Doc)
 		}
 	}
 }

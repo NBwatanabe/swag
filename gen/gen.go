@@ -15,8 +15,8 @@ import (
 	"text/template"
 	"time"
 
+	"github.com/NBwatanabe/swag"
 	"github.com/go-openapi/spec"
-	"github.com/swaggo/swag"
 	"golang.org/x/text/cases"
 	"golang.org/x/text/language"
 	"sigs.k8s.io/yaml"
@@ -239,7 +239,7 @@ func (g *Gen) Build(config *Config) error {
 }
 
 func (g *Gen) writeDocSwagger(config *Config, swagger *spec.Swagger) error {
-	var filename = "docs.go"
+	filename := "docs.go"
 
 	if config.State != "" {
 		filename = config.State + "_" + filename
@@ -282,7 +282,7 @@ func (g *Gen) writeDocSwagger(config *Config, swagger *spec.Swagger) error {
 }
 
 func (g *Gen) writeJSONSwagger(config *Config, swagger *spec.Swagger) error {
-	var filename = "swagger.json"
+	filename := "swagger.json"
 
 	if config.State != "" {
 		filename = config.State + "_" + filename
@@ -310,7 +310,7 @@ func (g *Gen) writeJSONSwagger(config *Config, swagger *spec.Swagger) error {
 }
 
 func (g *Gen) writeYAMLSwagger(config *Config, swagger *spec.Swagger) error {
-	var filename = "swagger.yaml"
+	filename := "swagger.yaml"
 
 	if config.State != "" {
 		filename = config.State + "_" + filename

@@ -9,9 +9,9 @@ import (
 
 	"github.com/urfave/cli/v2"
 
-	"github.com/swaggo/swag"
-	"github.com/swaggo/swag/format"
-	"github.com/swaggo/swag/gen"
+	"github.com/NBwatanabe/swag"
+	"github.com/NBwatanabe/swag/format"
+	"github.com/NBwatanabe/swag/gen"
 )
 
 const (
@@ -216,7 +216,7 @@ func initAction(ctx *cli.Context) error {
 		return fmt.Errorf("not supported %s collectionFormat", ctx.String(collectionFormat))
 	}
 
-	var pdv = ctx.Int(parseDependencyLevelFlag)
+	pdv := ctx.Int(parseDependencyLevelFlag)
 	if pdv == 0 {
 		if ctx.Bool(parseDependencyFlag) {
 			pdv = 1
